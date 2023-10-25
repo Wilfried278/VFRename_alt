@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace VFRename
 {
+    /// <summary>
+    /// Erstellt die Liste mit den Quell nd Zieldateinamen
+    /// </summary>
     public class CDateinamenReport
     {
         private  List<CDateinamen> dateiliste = null;
