@@ -8,7 +8,7 @@ using System.IO;
 namespace VFRename
 {
   /// <summary>
-  /// Dateien die bearbeitet werden sollen laden
+  /// Dateien die bearbeitet werden sollen,werden mit dieser Klasse geladen
   /// </summary>
   public class CQuellDateinamen
   {
