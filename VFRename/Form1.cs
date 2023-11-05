@@ -40,6 +40,8 @@ namespace VFRename
             //
             CHK_OriginalDateinemenVerwenden.Checked = true;
             CHK_OriginalDateinemenVerwenden.Checked = false;
+
+            formOptionen.DateiPfad = Properties.Settings.Default.letzerPfad;
         }
 
         /// <summary>
@@ -76,7 +78,9 @@ namespace VFRename
         private void BTN_Pfad_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fb = new FolderBrowserDialog();
-            fb.SelectedPath = "C:\\";
+            // fb.SelectedPath = "C:\\";
+
+            fb.SelectedPath = Properties.Settings.Default.letzerPfad;
             //
             //  Dialog zur Auswahl des Verzeichnisses starten
             //
@@ -90,6 +94,10 @@ namespace VFRename
             {
                 return; // der Dialog wurde mit Cancel geschlossen
             }
+
+            Properties.Settings.Default.letzerPfad = formOptionen.DateiPfad;
+            Properties.Settings.Default.Save();
+
             //
             //  Vesuch des Ladens der Dateinamen und bei erfolgreichem Laden
             //  die Schaltflächen zum Renamen und zur Vorschau aktivietrn
