@@ -203,7 +203,7 @@ namespace VFRename
 
         private void StartRenameFiles(bool simulation)
         {
-            // Einastellungen der GUI sichern
+            // Einstellungen der GUI sichern
             //
             SichernFormOptionen();
             //

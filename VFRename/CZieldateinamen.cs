@@ -11,7 +11,7 @@ using System.Drawing.Imaging;
 namespace VFRename
 {
     /// <summary>
-    /// Ermitztellt zu den FileInfoBlöcken die mit den  FormOptionen übergeben werden
+    /// Ermitellt zu den FileInfoBlöcken die mit den  FormOptionen übergeben werden
     /// die Zieldateinamen
     /// </summary>
     public class CZieldateinamen
@@ -53,16 +53,25 @@ namespace VFRename
 
         private void RenameFiles()
         {
-            StreamWriter logfile = CreateStreamWriter("VFRename_FileName_Log.csv");
+            StreamWriter logfile = CreateStreamWriter("VFRename_FileName_Log.bat");
 
-            logfile.WriteLine(DateTime.Now.ToLongTimeString());
+            DateTime heute = DateTime.Now;
+            logfile.Write("REM * Datum : ");
+            logfile.WriteLine(heute.ToShortDateString() + " " + DateTime.Now.ToLongTimeString());
+            logfile.WriteLine("REM * Gegebenefalls nachfolgende REM (s) löschen!");
+            logfile.WriteLine("REM * Die nachfolgende Befehle machen den zuvor durch VFRename durchgeführten Rename rückgängig!");
+            logfile.WriteLine("REM * Dazu müssen die Kommentare (REM) entfernt werden!");
+            logfile.WriteLine();
+
+
+
             //
             //  alle Quelldateien durchlaufen
             //
-            foreach (FileInfo file in FormOptionen.Quelldateinamen)
+            foreach (FileInfo fileInfo in FormOptionen.Quelldateinamen)
             {
-                DateTime erzeugt = file.CreationTime;
-                DateTime geändert = file.LastWriteTime;
+                DateTime erzeugt = fileInfo.CreationTime;
+                DateTime geändert = fileInfo.LastWriteTime;
                 DateTime datum;
 
                 if (formOptionen.ErstelldatumVerwenden == true)
@@ -70,11 +79,15 @@ namespace VFRename
                 else
                     datum = geändert;
 
-                string zieldateiname = ErzeugeZieldateiname(file, datum);
+                string zieldateiname = ErzeugeZieldateiname(fileInfo, datum);
 
-                WriteLogfile(logfile, file, zieldateiname);
-                RenameFiles(file, zieldateiname);
+                WriteLogfile(logfile, fileInfo, zieldateiname);
+                RenameFiles(fileInfo, zieldateiname);
             }
+            logfile.WriteLine();
+            logfile.WriteLine("REM -Ende-");
+            logfile.WriteLine("pause");
+
             logfile.Close();
         }
 
@@ -82,9 +95,14 @@ namespace VFRename
         private void WriteLogfile(StreamWriter logfile, FileInfo file, string zieldateiname)
         {
 
+            logfile.Write("REM ren ");
+            logfile.Write("\"");
+            logfile.Write(zieldateiname);
+            logfile.Write("\" ");
+
+            logfile.Write("\"");
             logfile.Write(file.FullName);
-            logfile.Write(";");
-            logfile.WriteLine(zieldateiname);
+            logfile.WriteLine("\" ");
 
             string textListbox = file.FullName + " -> " + zieldateiname;
             ListBoxInfo.Add(textListbox);
@@ -108,8 +126,10 @@ namespace VFRename
             string pfad = FormOptionen.Quelldateinamen[0].DirectoryName;
             string logdatei = Path.Combine(pfad, logfileName);
 
-            StreamWriter sw = new StreamWriter(logdatei, false, Encoding.Default);
-            sw.Write("VFRename_FileName: ");
+            
+            StreamWriter sw = new StreamWriter(logdatei, false, Encoding.UTF8);
+            sw.Write("REM * VFRename_FileName: ");
+            sw.WriteLine(logfileName);
             return sw;
 
         }
