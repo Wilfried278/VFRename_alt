@@ -154,17 +154,24 @@ namespace VFRename
             return zieldateiname;
         }
 
+
+        /// <summary>
+        /// Anhang des Wochentage wird der Suffix für den Dateinamen bestimmt
+        /// </summary>
+        /// <param name="datum"></param>
+        /// <returns></returns>
         private string bestimmeTrainerNachWochentag(DateTime datum)
         {
             // Tag 0 = Sonntag 
             // Tag 1 = Montag       (Privatstunde Fee, selten Heiko)
             // Tag 4 = Donnertag    (Privatstunde Heiko, selten Fee)
+            // Tag 5 = CT           (Competition Training)
             // Tag 6 = Samstag      (Privatstunde Heiko)
             int wochentag = (int) datum.DayOfWeek;
             //
             // Privatstunden bei Heiko Sonntags, Donnerstags oder Samstags
             //
-            if (wochentag == 0 || wochentag == 4 || wochentag == 5)
+            if (wochentag == 0 || wochentag == 4)
             {
                 return "Heiko";
             }
@@ -172,8 +179,10 @@ namespace VFRename
             {
                 return "Fee";
             }
+            else if (wochentag == 5)
+                return "CT";
             else
-                return "unbekannt";
+                return "unbekannt";   
         }
 
         private string CreateUhrzeittempel(DateTime datum)
