@@ -61,7 +61,7 @@ namespace VFRename
             logfile.WriteLine("REM * Gegebenefalls nachfolgende REM (s) löschen!");
             logfile.WriteLine("REM * Die nachfolgende Befehle machen den zuvor durch VFRename durchgeführten Rename rückgängig!");
             logfile.WriteLine("REM * Dazu müssen die Kommentare (REM) entfernt werden!");
-            logfile.WriteLine();
+            logfile.WriteLine("CHCP 1252");
 
 
 
@@ -98,10 +98,12 @@ namespace VFRename
             logfile.Write("REM ren ");
             logfile.Write("\"");
             logfile.Write(zieldateiname);
+            //logfile.Write(file.FullName);
             logfile.Write("\" ");
 
             logfile.Write("\"");
-            logfile.Write(file.FullName);
+            logfile.Write(file.Name);
+            //logfile.Write(zieldateiname);
             logfile.WriteLine("\" ");
 
             string textListbox = file.FullName + " -> " + zieldateiname;

@@ -94,7 +94,7 @@ namespace VFRename
             {
                 return; // der Dialog wurde mit Cancel geschlossen
             }
-
+            BTN_Rename.Enabled = true;
             Properties.Settings.Default.letzerPfad = formOptionen.DateiPfad;
             Properties.Settings.Default.Save();
 
@@ -203,6 +203,8 @@ namespace VFRename
 
         private void StartRenameFiles(bool simulation)
         {
+            BTN_Rename.Enabled = false;
+
             // Einstellungen der GUI sichern
             //
             SichernFormOptionen();
