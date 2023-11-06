@@ -78,6 +78,9 @@ namespace VFRename
         /// <param name="e"></param>
         private void BTN_Pfad_Click(object sender, EventArgs e)
         {
+            SteuerelementAktivieren(true);
+
+            
             LVW_RenameErgebnis.Items.Clear();
             LBX_DateienVorhanden.Items.Clear();
 
@@ -207,8 +210,11 @@ namespace VFRename
 
         private void StartRenameFiles(bool simulation)
         {
-            if (simulation == false) 
-                BTN_Rename.Enabled = false;
+            if (simulation == false)
+            {
+                SteuerelementAktivieren(simulation);
+            }
+
 
             // Einstellungen der GUI sichern
             //
@@ -236,6 +242,13 @@ namespace VFRename
 
             foreach(ColumnHeader col in LVW_RenameErgebnis.Columns) 
                 col.Width = -1;
+        }
+
+        private void SteuerelementAktivieren(bool aktiv)
+        {
+            EDT_Präfix.Enabled = aktiv;
+            BTN_Rename.Enabled = aktiv;
+            BTN_Vorschau.Enabled = aktiv;
         }
 
         /// <summary>
