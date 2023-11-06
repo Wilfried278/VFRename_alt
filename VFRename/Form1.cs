@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace VFRename
 {
@@ -77,6 +78,9 @@ namespace VFRename
         /// <param name="e"></param>
         private void BTN_Pfad_Click(object sender, EventArgs e)
         {
+            LVW_RenameErgebnis.Items.Clear();
+            LBX_DateienVorhanden.Items.Clear();
+
             FolderBrowserDialog fb = new FolderBrowserDialog();
             // fb.SelectedPath = "C:\\";
 
@@ -97,7 +101,7 @@ namespace VFRename
             BTN_Rename.Enabled = true;
             Properties.Settings.Default.letzerPfad = formOptionen.DateiPfad;
             Properties.Settings.Default.Save();
-
+            LBL_Datenpfad.Text = "Vorhandene Dateien in " + formOptionen.DateiPfad;
             //
             //  Vesuch des Ladens der Dateinamen und bei erfolgreichem Laden
             //  die Schaltflächen zum Renamen und zur Vorschau aktivietrn
@@ -134,9 +138,9 @@ namespace VFRename
 
             formOptionen.Quelldateinamen = quelldateien.QuellVideoDateien;
 
-            LBX_RenInfo.Items.Clear();
+            LBX_DateienVorhanden.Items.Clear();
             foreach (FileInfo finfo in quelldateien.QuellVideoDateien)
-                LBX_RenInfo.Items.Add(finfo.FullName);
+                LBX_DateienVorhanden.Items.Add(finfo.FullName);
 
             return quelldateien.QuellVideoDateien.Count < 1 ? false : true;
         }
@@ -203,7 +207,8 @@ namespace VFRename
 
         private void StartRenameFiles(bool simulation)
         {
-            BTN_Rename.Enabled = false;
+            if (simulation == false) 
+                BTN_Rename.Enabled = false;
 
             // Einstellungen der GUI sichern
             //
@@ -216,20 +221,20 @@ namespace VFRename
             CZieldateinamen ziel = new CZieldateinamen(formOptionen, simulation);
             List<CDateinamen> dateinamen = ziel.Gibdateinamen();
 
-            int colWidth = LVW_RenameInfo.Width / 2;
-            LVW_RenameInfo.Columns[0].Width = colWidth;
-            LVW_RenameInfo.Columns[1].Width = colWidth;
+            int colWidth = LVW_RenameErgebnis.Width / 2;
+            LVW_RenameErgebnis.Columns[0].Width = colWidth;
+            LVW_RenameErgebnis.Columns[1].Width = colWidth;
 
 
-            LVW_RenameInfo.Items.Clear();
+            LVW_RenameErgebnis.Items.Clear();
             foreach (CDateinamen d  in dateinamen)
             {
                 ListViewItem lvw = new ListViewItem(d.Quelledateiname);
                 lvw.SubItems.Add(d.Zieldateiname);
-                LVW_RenameInfo.Items.Add(lvw);
+                LVW_RenameErgebnis.Items.Add(lvw);
             }
 
-            foreach(ColumnHeader col in LVW_RenameInfo.Columns) 
+            foreach(ColumnHeader col in LVW_RenameErgebnis.Columns) 
                 col.Width = -1;
         }
 
@@ -270,6 +275,19 @@ namespace VFRename
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BTN_Abbruch_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void BTN_Datenpfad_Click(object sender, EventArgs e)
+        {
+            string letzerpfad = Properties.Settings.Default.letzerPfad;
+
+            if (Directory.Exists(letzerpfad))
+                Process.Start("explorer.exe", letzerpfad);
+        }
+
+        private void BTN_Ok_Click(object sender, EventArgs e)
         {
             Close();
         }

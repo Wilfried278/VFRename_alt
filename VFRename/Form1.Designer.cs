@@ -28,8 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
-            this.BTN_Ok = new System.Windows.Forms.Button();
-            this.BTN_Abbruch = new System.Windows.Forms.Button();
+            this.BTN_Beenden = new System.Windows.Forms.Button();
             this.EDT_Pfad = new System.Windows.Forms.TextBox();
             this.groupbox1 = new System.Windows.Forms.GroupBox();
             this.GBXFotoDateierweiterungen = new System.Windows.Forms.GroupBox();
@@ -55,11 +54,14 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.GBX_Originaldateinamen = new System.Windows.Forms.GroupBox();
             this.CHK_OriginalDateinemenVerwenden = new System.Windows.Forms.CheckBox();
-            this.LBX_RenInfo = new System.Windows.Forms.ListBox();
+            this.LBX_DateienVorhanden = new System.Windows.Forms.ListBox();
             this.BTN_Vorschau = new System.Windows.Forms.Button();
-            this.LVW_RenameInfo = new System.Windows.Forms.ListView();
+            this.LVW_RenameErgebnis = new System.Windows.Forms.ListView();
             this.colUrsprung = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColZielname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BTN_Datenpfad = new System.Windows.Forms.Button();
+            this.LBL_Datenpfad = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupbox1.SuspendLayout();
             this.GBXFotoDateierweiterungen.SuspendLayout();
             this.GBXVideoDateierweiterungen.SuspendLayout();
@@ -68,26 +70,16 @@
             this.GBX_Originaldateinamen.SuspendLayout();
             this.SuspendLayout();
             // 
-            // BTN_Ok
+            // BTN_Beenden
             // 
-            this.BTN_Ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_Ok.Location = new System.Drawing.Point(648, 12);
-            this.BTN_Ok.Name = "BTN_Ok";
-            this.BTN_Ok.Size = new System.Drawing.Size(75, 23);
-            this.BTN_Ok.TabIndex = 0;
-            this.BTN_Ok.Text = "Ok";
-            this.BTN_Ok.UseVisualStyleBackColor = true;
-            // 
-            // BTN_Abbruch
-            // 
-            this.BTN_Abbruch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_Abbruch.Location = new System.Drawing.Point(648, 43);
-            this.BTN_Abbruch.Name = "BTN_Abbruch";
-            this.BTN_Abbruch.Size = new System.Drawing.Size(75, 23);
-            this.BTN_Abbruch.TabIndex = 1;
-            this.BTN_Abbruch.Text = "Abbruch";
-            this.BTN_Abbruch.UseVisualStyleBackColor = true;
-            this.BTN_Abbruch.Click += new System.EventHandler(this.BTN_Abbruch_Click);
+            this.BTN_Beenden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_Beenden.Location = new System.Drawing.Point(648, 43);
+            this.BTN_Beenden.Name = "BTN_Beenden";
+            this.BTN_Beenden.Size = new System.Drawing.Size(75, 23);
+            this.BTN_Beenden.TabIndex = 0;
+            this.BTN_Beenden.Text = "Beenden";
+            this.BTN_Beenden.UseVisualStyleBackColor = true;
+            this.BTN_Beenden.Click += new System.EventHandler(this.BTN_Ok_Click);
             // 
             // EDT_Pfad
             // 
@@ -363,15 +355,15 @@
             this.CHK_OriginalDateinemenVerwenden.UseVisualStyleBackColor = true;
             this.CHK_OriginalDateinemenVerwenden.CheckedChanged += new System.EventHandler(this.CHK_OriginalDateinemenVerwenden_CheckedChanged);
             // 
-            // LBX_RenInfo
+            // LBX_DateienVorhanden
             // 
-            this.LBX_RenInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.LBX_DateienVorhanden.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LBX_RenInfo.FormattingEnabled = true;
-            this.LBX_RenInfo.Location = new System.Drawing.Point(12, 554);
-            this.LBX_RenInfo.Name = "LBX_RenInfo";
-            this.LBX_RenInfo.Size = new System.Drawing.Size(711, 173);
-            this.LBX_RenInfo.TabIndex = 11;
+            this.LBX_DateienVorhanden.FormattingEnabled = true;
+            this.LBX_DateienVorhanden.Location = new System.Drawing.Point(16, 402);
+            this.LBX_DateienVorhanden.Name = "LBX_DateienVorhanden";
+            this.LBX_DateienVorhanden.Size = new System.Drawing.Size(711, 147);
+            this.LBX_DateienVorhanden.TabIndex = 11;
             // 
             // BTN_Vorschau
             // 
@@ -384,19 +376,19 @@
             this.BTN_Vorschau.UseVisualStyleBackColor = true;
             this.BTN_Vorschau.Click += new System.EventHandler(this.BTN_Vorschau_Click);
             // 
-            // LVW_RenameInfo
+            // LVW_RenameErgebnis
             // 
-            this.LVW_RenameInfo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.LVW_RenameErgebnis.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colUrsprung,
             this.ColZielname});
-            this.LVW_RenameInfo.GridLines = true;
-            this.LVW_RenameInfo.HideSelection = false;
-            this.LVW_RenameInfo.Location = new System.Drawing.Point(12, 391);
-            this.LVW_RenameInfo.Name = "LVW_RenameInfo";
-            this.LVW_RenameInfo.Size = new System.Drawing.Size(711, 143);
-            this.LVW_RenameInfo.TabIndex = 13;
-            this.LVW_RenameInfo.UseCompatibleStateImageBehavior = false;
-            this.LVW_RenameInfo.View = System.Windows.Forms.View.Details;
+            this.LVW_RenameErgebnis.GridLines = true;
+            this.LVW_RenameErgebnis.HideSelection = false;
+            this.LVW_RenameErgebnis.Location = new System.Drawing.Point(16, 583);
+            this.LVW_RenameErgebnis.Name = "LVW_RenameErgebnis";
+            this.LVW_RenameErgebnis.Size = new System.Drawing.Size(711, 143);
+            this.LVW_RenameErgebnis.TabIndex = 13;
+            this.LVW_RenameErgebnis.UseCompatibleStateImageBehavior = false;
+            this.LVW_RenameErgebnis.View = System.Windows.Forms.View.Details;
             // 
             // colUrsprung
             // 
@@ -408,20 +400,51 @@
             this.ColZielname.Text = "Zieldateiname";
             this.ColZielname.Width = 350;
             // 
+            // BTN_Datenpfad
+            // 
+            this.BTN_Datenpfad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTN_Datenpfad.Location = new System.Drawing.Point(553, 352);
+            this.BTN_Datenpfad.Name = "BTN_Datenpfad";
+            this.BTN_Datenpfad.Size = new System.Drawing.Size(75, 23);
+            this.BTN_Datenpfad.TabIndex = 14;
+            this.BTN_Datenpfad.Text = "Datenpfad";
+            this.BTN_Datenpfad.UseVisualStyleBackColor = true;
+            this.BTN_Datenpfad.Click += new System.EventHandler(this.BTN_Datenpfad_Click);
+            // 
+            // LBL_Datenpfad
+            // 
+            this.LBL_Datenpfad.AutoSize = true;
+            this.LBL_Datenpfad.Location = new System.Drawing.Point(13, 386);
+            this.LBL_Datenpfad.Name = "LBL_Datenpfad";
+            this.LBL_Datenpfad.Size = new System.Drawing.Size(139, 13);
+            this.LBL_Datenpfad.TabIndex = 15;
+            this.LBL_Datenpfad.Text = "Vorhandene Datein im Plad ";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 567);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(141, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Ergebbnis der Konvertierung";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(735, 738);
-            this.Controls.Add(this.LVW_RenameInfo);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.LBL_Datenpfad);
+            this.Controls.Add(this.BTN_Datenpfad);
+            this.Controls.Add(this.LVW_RenameErgebnis);
             this.Controls.Add(this.BTN_Vorschau);
-            this.Controls.Add(this.LBX_RenInfo);
+            this.Controls.Add(this.LBX_DateienVorhanden);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.BTN_Rename);
             this.Controls.Add(this.groupbox1);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.BTN_Abbruch);
-            this.Controls.Add(this.BTN_Ok);
+            this.Controls.Add(this.BTN_Beenden);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupbox1.ResumeLayout(false);
@@ -437,13 +460,13 @@
             this.GBX_Originaldateinamen.ResumeLayout(false);
             this.GBX_Originaldateinamen.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
     #endregion
 
-    private System.Windows.Forms.Button BTN_Ok;
-    private System.Windows.Forms.Button BTN_Abbruch;
+    private System.Windows.Forms.Button BTN_Beenden;
     private System.Windows.Forms.TextBox EDT_Pfad;
     private System.Windows.Forms.GroupBox groupbox1;
     private System.Windows.Forms.GroupBox groupBox3;
@@ -469,11 +492,14 @@
     private System.Windows.Forms.GroupBox groupBox2;
     private System.Windows.Forms.GroupBox GBX_Originaldateinamen;
     private System.Windows.Forms.CheckBox CHK_OriginalDateinemenVerwenden;
-    private System.Windows.Forms.ListBox LBX_RenInfo;
+    private System.Windows.Forms.ListBox LBX_DateienVorhanden;
     private System.Windows.Forms.Button BTN_Vorschau;
-        private System.Windows.Forms.ListView LVW_RenameInfo;
+        private System.Windows.Forms.ListView LVW_RenameErgebnis;
         private System.Windows.Forms.ColumnHeader colUrsprung;
         private System.Windows.Forms.ColumnHeader ColZielname;
+        private System.Windows.Forms.Button BTN_Datenpfad;
+        private System.Windows.Forms.Label LBL_Datenpfad;
+        private System.Windows.Forms.Label label3;
     }
 }
 
