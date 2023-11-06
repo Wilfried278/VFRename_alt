@@ -73,7 +73,7 @@
             // BTN_Beenden
             // 
             this.BTN_Beenden.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTN_Beenden.Location = new System.Drawing.Point(648, 43);
+            this.BTN_Beenden.Location = new System.Drawing.Point(652, 12);
             this.BTN_Beenden.Name = "BTN_Beenden";
             this.BTN_Beenden.Size = new System.Drawing.Size(75, 23);
             this.BTN_Beenden.TabIndex = 0;
