@@ -53,15 +53,17 @@ namespace VFRename
 
         private void RenameFiles()
         {
-            StreamWriter logfile = CreateStreamWriter("VFRename_FileName_Log.bat");
+            StreamWriter logfile = CreateStreamWriter("VFRename_FileName_Log.vbs");
 
             DateTime heute = DateTime.Now;
-            logfile.Write("REM * Datum : ");
+            logfile.Write("' * Datum : ");
             logfile.WriteLine(heute.ToShortDateString() + " " + DateTime.Now.ToLongTimeString());
-            logfile.WriteLine("REM * Gegebenefalls nachfolgende REM (s) löschen!");
-            logfile.WriteLine("REM * Die nachfolgende Befehle machen den zuvor durch VFRename durchgeführten Rename rückgängig!");
-            logfile.WriteLine("REM * Dazu müssen die Kommentare (REM) entfernt werden!");
-            logfile.WriteLine("CHCP 1252");
+            logfile.WriteLine("' * Gegebenefalls nachfolgende REM (s) löschen!");
+            logfile.WriteLine("' * Die nachfolgende Befehle machen den zuvor durch VFRename durchgeführten Rename rückgängig!");
+            logfile.WriteLine("' * Dazu müssen die Kommentare (REM) entfernt werden!");
+            logfile.WriteLine("Dim Fso");
+            logfile.WriteLine("Set Fso = WScript.CreateObject(\"Scripting.FileSystemObject\")");
+
 
 
 
@@ -94,17 +96,22 @@ namespace VFRename
         
         private void WriteLogfile(StreamWriter logfile, FileInfo file, string zieldateiname)
         {
+            /*
+            Dim Fso
+            Set Fso = WScript.CreateObject("Scripting.FileSystemObject")
+            Fso.MoveFile "A.txt", "B.txt"
+            */
 
-            logfile.Write("REM ren ");
-            logfile.Write("\"");
+            logfile.Write("Fso.MoveFile");
+
+            logfile.Write(" \"");
             logfile.Write(zieldateiname);
+            logfile.Write("\",");
             //logfile.Write(file.FullName);
-            logfile.Write("\" ");
 
+            logfile.Write(" \"");
+            logfile.Write(file.Name); 
             logfile.Write("\"");
-            logfile.Write(file.Name);
-            //logfile.Write(zieldateiname);
-            logfile.WriteLine("\" ");
 
             string textListbox = file.FullName + " -> " + zieldateiname;
             ListBoxInfo.Add(textListbox);
