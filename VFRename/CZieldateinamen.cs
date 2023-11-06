@@ -53,22 +53,21 @@ namespace VFRename
 
         private void RenameFiles()
         {
-            StreamWriter logfile = CreateStreamWriter("VFRename_FileName_Log.vbs");
+            StreamWriter logfile = CreateStreamWriter("VFRename_FileName.vbs");
 
             DateTime heute = DateTime.Now;
             logfile.Write("' * Datum : ");
             logfile.WriteLine(heute.ToShortDateString() + " " + DateTime.Now.ToLongTimeString());
-            logfile.WriteLine("' * Gegebenefalls nachfolgende REM (s) löschen!");
-            logfile.WriteLine("' * Die nachfolgende Befehle machen den zuvor durch VFRename durchgeführten Rename rückgängig!");
-            logfile.WriteLine("' * Dazu müssen die Kommentare (REM) entfernt werden!");
+            logfile.WriteLine("' * Diese Script kann den Renaem von Videodateien rückgängig machen!");
+            logfile.WriteLine("' * Das Script wurde automatisch durch das C# Programm VFRename erzeugt");
+            logfile.WriteLine("'");
+            logfile.WriteLine("On Error Resume next");
             logfile.WriteLine("Dim Fso");
             logfile.WriteLine("Set Fso = WScript.CreateObject(\"Scripting.FileSystemObject\")");
-
-
-
-
+            logfile.WriteLine("result = msgbox (\"Rename rückgägig machen ? \", vbYesNo,  \"Rename\")");
+            logfile.WriteLine("if (result = vbyes) then ");
             //
-            //  alle Quelldateien durchlaufen
+            //  alle Quelldateien un Reanem statement bilden
             //
             foreach (FileInfo fileInfo in FormOptionen.Quelldateinamen)
             {
@@ -86,9 +85,14 @@ namespace VFRename
                 WriteLogfile(logfile, fileInfo, zieldateiname);
                 RenameFiles(fileInfo, zieldateiname);
             }
-            logfile.WriteLine();
-            logfile.WriteLine("REM -Ende-");
-            logfile.WriteLine("pause");
+            //
+            //  Errorjhandlicg schreiben
+            //
+            logfile.WriteLine("end if");
+            logfile.WriteLine("if Err.Number <> 0 Then");
+            logfile.WriteLine("\tMsgBox Err.Description, vbOkOnly, \"Fehler bei Rename!\"");
+            logfile.WriteLine("end if");
+
 
             logfile.Close();
         }
@@ -102,7 +106,7 @@ namespace VFRename
             Fso.MoveFile "A.txt", "B.txt"
             */
 
-            logfile.Write("Fso.MoveFile");
+            logfile.Write("\tFso.MoveFile");
 
             logfile.Write(" \"");
             logfile.Write(zieldateiname);
@@ -110,8 +114,9 @@ namespace VFRename
             //logfile.Write(file.FullName);
 
             logfile.Write(" \"");
-            logfile.Write(file.Name); 
+            logfile.Write(file.FullName); 
             logfile.Write("\"");
+            logfile.WriteLine();
 
             string textListbox = file.FullName + " -> " + zieldateiname;
             ListBoxInfo.Add(textListbox);
@@ -136,8 +141,8 @@ namespace VFRename
             string logdatei = Path.Combine(pfad, logfileName);
 
             
-            StreamWriter sw = new StreamWriter(logdatei, false, Encoding.UTF8);
-            sw.Write("REM * VFRename_FileName: ");
+            StreamWriter sw = new StreamWriter(logdatei, false, Encoding.Default);
+            sw.Write("' * VFRename_FileName: ");
             sw.WriteLine(logfileName);
             return sw;
 
