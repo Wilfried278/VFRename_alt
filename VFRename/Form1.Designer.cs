@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.BTN_Beenden = new System.Windows.Forms.Button();
             this.EDT_Pfad = new System.Windows.Forms.TextBox();
             this.groupbox1 = new System.Windows.Forms.GroupBox();
@@ -445,6 +446,7 @@
             this.Controls.Add(this.groupbox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.BTN_Beenden);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupbox1.ResumeLayout(false);
